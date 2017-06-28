@@ -26,7 +26,7 @@ int main() {
 
 int FindNum(int x1, int y1, int r1, int x2, int y2, int r2) {
 
-	double d = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)); // 두 정점 사이의 거리, double로 선언 주의!
+	double d = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)); // 두 정점 사이의 거리, double!
 	int rl, rs;
 	
 	if (r1 > r2) {
