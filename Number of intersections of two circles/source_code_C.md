@@ -5,7 +5,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+
 int FindNum(int, int, int, int, int, int);
+
 int main() {
 
 	int x1, y1, r1, x2, y2, r2, T, *Answer;
