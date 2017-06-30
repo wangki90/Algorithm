@@ -9,7 +9,7 @@
 int min(int a, int b);
 int main() {
 
-	int arr[3];
+	int arr[3]; //R : 0, G : 1, B : 2
 	int cost[1000][3] = { 0, };
 	int N;
 
@@ -18,9 +18,9 @@ int main() {
 
 	for (int i = 1; i < N; i++) {
 		scanf("%d %d %d", &arr[0], &arr[1], &arr[2]);
-		cost[i][0] = min(cost[i - 1][1], cost[i - 1][2]) + arr[0];
-		cost[i][1] = min(cost[i - 1][0], cost[i - 1][2]) + arr[1];
-		cost[i][2] = min(cost[i - 1][0], cost[i - 1][1]) + arr[2];
+		cost[i][0] = min(cost[i - 1][1], cost[i - 1][2]) + arr[0]; // R
+		cost[i][1] = min(cost[i - 1][0], cost[i - 1][2]) + arr[1]; // G
+		cost[i][2] = min(cost[i - 1][0], cost[i - 1][1]) + arr[2]; // B
 	}
 	printf("%d\n", min(min(cost[N - 1][0], cost[N - 1][1]), cost[N - 1][2]));
 
