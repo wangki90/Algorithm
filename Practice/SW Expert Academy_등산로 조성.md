@@ -36,7 +36,7 @@ void bfs(vector<vector<int> > cmap) {
 				int nx = cx + dx[i];
 				int ny = cy + dy[i];
 				if (nx >= 0 && ny >= 0 && nx < n && ny < n) {
-					//방문하지 않고, 값이 작을 경우만 이동
+					//값이 작을 경우만 이동
 					if (cmap[cx][cy] > cmap[nx][ny]) {
 						que.push(make_pair(nx, ny));
 						dInfo[nx][ny] = dInfo[cx][cy] + 1;
