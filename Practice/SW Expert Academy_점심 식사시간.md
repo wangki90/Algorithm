@@ -1,4 +1,3 @@
-```c++
 #include <cstdio>
 #include <vector>
 #include <algorithm>
@@ -29,19 +28,15 @@ void solution(int selectStair[11]) {
 		time++;
 		//계단1 끝
 		while (!sq1.empty()) {
-			if (sq1.front().second <= time) {
-				chk[sq1.front().first] = true;
+			if (sq1.front().second <= time)
 				sq1.pop();
-			}
 			else 
 				break;
 		}
 		//계단2 끝
 		while (!sq2.empty()) {
-			if (sq2.front().second <= time) {
-				chk[sq2.front().first] = true;
+			if (sq2.front().second <= time)
 				sq2.pop();
-			}
 			else
 				break;
 		}
@@ -109,5 +104,3 @@ int main() {
 	}
 	return 0;
 }
-```
-
