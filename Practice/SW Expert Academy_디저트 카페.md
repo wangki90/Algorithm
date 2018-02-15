@@ -29,7 +29,7 @@ void dfs(int x, int y,int depth, pair<int,int> start, int direction, int changeD
 	for (int i = 0; i < 4; i++) {
 		int nx1 = x + dx[i], ny1 = y + dy[i], nx2 = x + dx[(i + 1) % 4], ny2 = y + dy[(i + 1) % 4];
 		if (direction == i) {
-			//방향 그대로 진행.
+			//방향 그대로 진행,
 			if (nx1 >= 0 && nx1 < n && ny1 >= 0 && ny1 < n) {
 				if (!chk[map[nx1][ny1]] && !visit[nx1][ny1] || (nx1 == start.first && ny1 == start.second))
 					dfs(nx1, ny1, depth + 1, start, direction, changeDirectionCnt);
