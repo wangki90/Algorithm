@@ -1,102 +1,96 @@
 ```c++
 //dfs 완탐 + 백트래킹
 //백트레킹의 경우 더 이상 탐색 안하게 할 수 있는 조건을 잘 생각해 보아야 함.
+#include <iostream>
 #include <cstdio>
 #include <algorithm>
+#include <cstring>
 
+#define MIN 987654321
 using namespace std;
 
-int D, W, K;
 int film[13][20];
-int maxNum[20][1];
+int d, w, k;
 int answer;
-bool check(int F[13][20]) {
-	for (int i = 0; i < W; i++) {
-		int count = 1;
-		int maxCnt = 0;
-		int cur, prev = F[0][i];
-		for (int j = 1; j < D; j++) {
-			cur = F[j][i];
-			if (cur == prev) {
-				count++;
+bool chk(int f[13][20]) {
+
+	for (int i = 0; i < w; i++) {
+		int conti[13];
+		for (int j = 0; j < d; j++) {
+			conti[j] = f[j][i];
+		}
+		int tmp = 1, max_conti = 1;
+		for (int j = 0; j < d - 1; j++) {
+			if (conti[j] == conti[j + 1]) {
+				tmp++;
 			}
 			else {
-				count = 1;
+				tmp = 1;
 			}
-			maxCnt = max(maxCnt, count);
-			prev = cur;
+			max_conti = max(max_conti, tmp);
 		}
-		if (maxCnt < K) return false;
-		maxNum[i][0] = maxCnt;
+		if (max_conti < k) {
+			return false;
+		}
 	}
 	return true;
 }
-int solution(int Fm[13][20], int drugNum, int depth) {
+void proc(int c_film[13][20], int drug_cnt, int cur_cell) {
 
-	if (drugNum >= answer) {
-		return answer;
-	}
-
-	if (check(Fm)) {
-		answer = min(answer, drugNum);
+	if (chk(c_film)) {
+		answer = min(answer, drug_cnt);
 		if (answer == 0)
-			return answer;
-	}
-	if (depth == D) {
-		return answer;
-	}
-	
-	int tmp[13][20];
-	for (int i = 0; i < D; i++) {
-		for (int j = 0; j < W; j++) {
-			tmp[i][j] = Fm[i][j];
-		}
+			return;
 	}
 
-	solution(tmp, drugNum, depth + 1);
-
-	for (int i = 0; i < W; i++) {
-		tmp[depth][i] = 0;
+	if (drug_cnt >= answer || cur_cell >= d) {
+		return;
 	}
-	solution(tmp, drugNum + 1, depth + 1);
-
-	for (int i = 0; i < W; i++) {
-		tmp[depth][i] = 1;
+	int cc_film[13][20];
+	for (int i = 0; i < d; i++) {
+		memcpy(cc_film[i], c_film[i],	sizeof(int) * w);
 	}
-	solution(tmp, drugNum + 1, depth + 1);
-
+	//x
+	proc(cc_film, drug_cnt, cur_cell + 1);
+	//a
+	for (int i = 0; i < w; i++) {
+		cc_film[cur_cell][i] = 0;
+	}
+	proc(cc_film, drug_cnt + 1, cur_cell + 1);
+	//b
+	for (int i = 0; i < w; i++) {
+		cc_film[cur_cell][i] = 1;
+	}
+	proc(cc_film, drug_cnt + 1, cur_cell + 1);
 }
-int main() {
-
+int main(int argc, char** argv)
+{
+	int test_case;
 	int T;
-	scanf("%d", &T);
 
-	for (int tc = 0; tc < T; tc++) {
-		answer = 99;
-		scanf("%d %d %d", &D, &W, &K);
+	//freopen("sample_input.txt", "r", stdin);
+	cin >> T;
 
-		for (int i = 0; i < D; i++) {
-			for (int j = 0; j < W; j++) {
+	for (test_case = 1; test_case <= T; ++test_case)
+	{
+		answer = MIN;
+		scanf("%d %d %d", &d, &w, &k);
+
+		for (int i = 0; i < d; i++) {
+			for (int j = 0; j < w; j++) {
 				scanf("%d", &film[i][j]);
 			}
 		}
-
-		answer = solution(film, 0, 1);
-
-		for (int i = 0; i < W; i++) {
-			film[0][i] = 0;
+		if (chk(film)) {
+			answer = 0;
+			printf("#%d %d\n",test_case, answer);
 		}
-		answer = solution(film, 1, 1);
-
-		for (int i = 0; i < W; i++) {
-			film[0][i] = 1;
+		else {
+			proc(film, 0, 0);
+			printf("#%d %d\n",test_case, answer);
 		}
-		answer = solution(film, 1, 1);
-
-		printf("#%d %d\n", tc + 1, answer);
 	}
-	return 0;
+	return 0;//정상종료시 반드시 0을 리턴해야합니다.
 }
-
 ```
 
