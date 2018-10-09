@@ -3,6 +3,9 @@
 //배열로 큐 구현
 //vector<pair<pair<int, int>, pair<int, int> >> 사용 -> 시간초과
 //pair<pair<int, int>, pair<int, int> > -> 구조체로 구현
+//x, y 좌표 축 변경
+//0.5초 충돌 -> 좌표계 0~2000 -> 0~4000 변경
+//원소 이동 제한 
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
